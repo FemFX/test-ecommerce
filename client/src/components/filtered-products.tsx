@@ -8,6 +8,7 @@ import { Product } from "@/types/product.type";
 import { useState } from "react";
 import { useQueryState } from "nuqs";
 import { useFilterProducts } from "@/hooks/use-filter-products";
+import { useDebounce } from "use-debounce";
 
 interface FilteredProductsProps {
   attributes: Attribute[];
@@ -21,9 +22,10 @@ const FilteredProducts = ({
   categoryId,
 }: FilteredProductsProps) => {
   const [searchTerms, setSearchTerms] = useQueryState("searchTerms");
+  const [debouncedSearchTerms] = useDebounce(searchTerms, 300);
   const [attributeIds, setAttributeIds] = useState<string[]>([]);
   const { data } = useFilterProducts(
-    { attributeIds, categoryId, searchTerms: searchTerms || "" },
+    { attributeIds, categoryId, searchTerms: debouncedSearchTerms || "" },
     { products }
   );
 
