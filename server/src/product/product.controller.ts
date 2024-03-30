@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @Controller('product')
 export class ProductController {
@@ -16,13 +17,20 @@ export class ProductController {
     return this.productService.getOne(id);
   }
 
-  @Get(':category')
-  async getAllByCategory(@Param('category') category: string) {
-    return this.productService.getAllByCategory(category);
+  @Get('category/:categoryId')
+  async getAllByCategory(
+    @Query() query,
+    @Param('categoryId') categoryId: string,
+  ) {
+    return this.productService.getAllByCategory(categoryId, query);
   }
 
   @Post()
   async create(@Body() dto: CreateProductDto) {
     return this.productService.create(dto);
+  }
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
+    return this.productService.update(id, dto);
   }
 }

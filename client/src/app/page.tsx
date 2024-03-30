@@ -1,5 +1,7 @@
-import ProductCard from "@/components/product-card";
+import ProductsCards from "@/components/product-cards";
 import { Product } from "@/types/product.type";
+import CategoryList from "@/components/category-list";
+import { Category } from "@/types/category.type";
 
 async function getProducts(): Promise<Product[]> {
   const res = await fetch("http://localhost:3000/api/products", {
@@ -13,16 +15,27 @@ async function getProducts(): Promise<Product[]> {
 
   return res.json();
 }
+async function getCategories(): Promise<Category[]> {
+  const res = await fetch("http://localhost:3000/api/categories", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
 
 export default async function Home() {
   const products = await getProducts();
-  console.log("products", products);
+  const categories = await getCategories();
 
   return (
-    <div className="grid grid-cols-4">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+    <div>
+      <CategoryList categories={categories} />
+      <ProductsCards products={products} />
     </div>
   );
 }

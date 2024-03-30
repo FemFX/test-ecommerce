@@ -1,9 +1,8 @@
 import { IsString } from 'class-validator';
 
-export class CreateAttributeDto {
+export class UpdateProductDto {
   @IsString()
   readonly name: string;
-
   @IsString()
-  readonly value: string;
+  readonly imageUrl: string;
 }

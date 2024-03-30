@@ -12,6 +12,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           className="object-cover"
           alt={product.name}
         /> */}
+        321
       </div>
     </Card>
   );
