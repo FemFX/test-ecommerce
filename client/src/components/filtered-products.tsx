@@ -1,14 +1,13 @@
 "use client";
 
-import axios from "axios";
 import { Attribute } from "@/types/attribute";
 import Filter from "./filter";
 import ProductsCards from "./product-cards";
 import { Input } from "./ui/input";
 import { Product } from "@/types/product.type";
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useQueryState } from "nuqs";
+import { useFilterProducts } from "@/hooks/use-filter-products";
 
 interface FilteredProductsProps {
   attributes: Attribute[];
@@ -23,24 +22,10 @@ const FilteredProducts = ({
 }: FilteredProductsProps) => {
   const [searchTerms, setSearchTerms] = useQueryState("searchTerms");
   const [attributeIds, setAttributeIds] = useState<string[]>([]);
-  const { data } = useQuery<Product[]>({
-    queryKey: ["products", categoryId, searchTerms, ...attributeIds],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `http://localhost:4000/api/product/category/${categoryId}?searchTerms=${searchTerms}`,
-        {
-          params:
-            attributeIds.length > 0
-              ? { attributeIds: attributeIds.join(",") }
-              : {},
-        }
-      );
-
-      return data;
-    },
-    initialData: products,
-  });
-  console.log(attributeIds);
+  const { data } = useFilterProducts(
+    { attributeIds, categoryId, searchTerms: searchTerms || "" },
+    { products }
+  );
 
   return (
     <div>
