@@ -9,6 +9,8 @@ export class FilterService {
     categoryId,
     searchTerms,
   }: FilterDto): Prisma.ProductFindManyArgs {
+    const attributeIdsArray =
+      typeof attributeIds === 'string' ? attributeIds.split(',') : [];
     return {
       where: {
         categoryId,
@@ -18,13 +20,15 @@ export class FilterService {
             mode: 'insensitive',
           },
         }),
-        attributes: {
-          some: {
-            id: {
-              in: attributeIds,
+        ...(attributeIdsArray.length > 0 && {
+          attributes: {
+            some: {
+              id: {
+                in: attributeIdsArray,
+              },
             },
           },
-        },
+        }),
       },
       include: {
         attributes: true,

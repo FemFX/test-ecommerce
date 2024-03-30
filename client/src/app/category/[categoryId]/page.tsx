@@ -1,6 +1,4 @@
-import Filter from "@/components/filter";
-import ProductsCards from "@/components/product-cards";
-import { Input } from "@/components/ui/input";
+import FilteredProducts from "@/components/filtered-products";
 import { Attribute } from "@/types/attribute";
 import { Product } from "@/types/product.type";
 
@@ -47,18 +45,11 @@ const ProductsByCategoryPage = async ({
 
   return (
     <div>
-      <div className="mb-3">
-        <Input placeholder="search" />
-      </div>
-
-      <div className="grid grid-cols-4">
-        <div>
-          <Filter attributes={attributes} />
-        </div>
-        <div className="col-span-3">
-          <ProductsCards products={products} />
-        </div>
-      </div>
+      <FilteredProducts
+        categoryId={params.categoryId}
+        attributes={attributes}
+        products={products}
+      />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <Card>
+    <Card className="border">
       <div className="relative w-full aspect-video rounded-md overflow-hidden h-[140px]">
         {/* <Image
           fill
@@ -12,7 +12,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           className="object-cover"
           alt={product.name}
         /> */}
-        321
+        {product.name}
       </div>
     </Card>
   );

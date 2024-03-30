@@ -9,8 +9,6 @@ export class FilterDto {
   @IsString()
   categoryId: string;
 
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => String)
-  attributeIds: string[];
+  @IsString()
+  attributeIds: string;
 }
