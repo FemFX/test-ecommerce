@@ -53,7 +53,6 @@ const ProductsByCategoryPage = async ({
 
       <div className="grid grid-cols-4">
         <div>
-          {" "}
           <Filter attributes={attributes} />
         </div>
         <div className="col-span-3">

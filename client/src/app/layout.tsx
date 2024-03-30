@@ -7,6 +7,7 @@ import "./globals.css";
 
 import "@gravity-ui/uikit/styles/fonts.css";
 import "@gravity-ui/uikit/styles/styles.css";
+import QueryProvider from "@/components/providers/query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,10 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider>
+        <QueryProvider>
           <Navbar />
           <main className="pt-32 h-full container mx-auto">{children}</main>
-        </Provider>
+        </QueryProvider>
       </body>
     </html>
   );
