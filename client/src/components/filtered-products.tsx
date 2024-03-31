@@ -1,14 +1,15 @@
 "use client";
 
+import { useState } from "react";
+import { useQueryState } from "nuqs";
+import { Loader2 } from "lucide-react";
+import { useDebounce } from "use-debounce";
 import { Attribute } from "@/types/attribute";
 import Filter from "./filter";
 import ProductsCards from "./product-cards";
 import { Input } from "./ui/input";
 import { Product } from "@/types/product.type";
-import { useState } from "react";
-import { useQueryState } from "nuqs";
 import { useFilterProducts } from "@/hooks/use-filter-products";
-import { useDebounce } from "use-debounce";
 
 interface FilteredProductsProps {
   attributes: Attribute[];
@@ -24,11 +25,17 @@ const FilteredProducts = ({
   const [searchTerms, setSearchTerms] = useQueryState("searchTerms");
   const [debouncedSearchTerms] = useDebounce(searchTerms, 300);
   const [attributeIds, setAttributeIds] = useState<string[]>([]);
-  const { data } = useFilterProducts(
+  const { data, error, isLoading } = useFilterProducts(
     { attributeIds, categoryId, searchTerms: debouncedSearchTerms || "" },
     { products }
   );
-
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Loader2 className="animate-spin" />
+      </div>
+    );
+  }
   return (
     <div>
       <div className="mb-3">
@@ -48,7 +55,11 @@ const FilteredProducts = ({
           />
         </div>
         <div className="col-span-3">
-          <ProductsCards products={data ?? []} />
+          {data.length > 0 ? (
+            <ProductsCards products={data} />
+          ) : (
+            <p>Products not found...</p>
+          )}
         </div>
       </div>
     </div>

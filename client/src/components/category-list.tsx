@@ -1,5 +1,5 @@
-import { Category } from "@/types/category.type";
 import Link from "next/link";
+import { Category } from "@/types/category.type";
 
 const CategoryList = ({ categories }: { categories: Category[] }) => {
   return (

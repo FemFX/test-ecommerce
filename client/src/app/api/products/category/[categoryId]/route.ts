@@ -6,7 +6,7 @@ export async function GET(
 ) {
   try {
     const res = await fetch(
-      `${process.env.API_URL}product/category/${params.categoryId}`
+      `${process.env.NEXT_PUBLIC_API_URL}product/category/${params.categoryId}`
     );
 
     if (!res.ok) {

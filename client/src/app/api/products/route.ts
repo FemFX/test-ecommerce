@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
-    const res = await fetch(`${process.env.API_URL}product`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}product`);
 
     if (!res.ok) {
       return new NextResponse("Something went wrong", {

@@ -1,8 +1,8 @@
 "use client";
+import { Dispatch, SetStateAction, useMemo } from "react";
 import { groupAttributes } from "@/lib/utils";
 import { Attribute } from "@/types/attribute";
 import { Checkbox } from "@gravity-ui/uikit";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export interface GroupedAttributes {
   [attributeName: string]: { id: string; value: string }[];
@@ -15,21 +15,19 @@ interface FilterProps {
 }
 
 const Filter = ({ attributes, setAttributeIds, attributeIds }: FilterProps) => {
-  const [groupedAttributes, setGroupedAttributes] = useState<GroupedAttributes>(
-    {}
+  const groupedAttributes = useMemo(
+    () => groupAttributes(attributes),
+    [attributes]
   );
+
   const handleFilterChange = (id: string) => {
     setAttributeIds((prevFilters) => {
-      if (prevFilters.includes(id)) {
-        return prevFilters.filter((val) => val !== id);
-      } else {
-        return [...prevFilters, id];
-      }
+      const newFilterIds = prevFilters.includes(id)
+        ? prevFilters.filter((val) => val !== id)
+        : [...prevFilters, id];
+      return newFilterIds;
     });
   };
-  useEffect(() => {
-    setGroupedAttributes(groupAttributes(attributes));
-  }, [attributes]);
 
   return (
     <div>

@@ -4,7 +4,7 @@ import CategoryList from "@/components/category-list";
 import { Category } from "@/types/category.type";
 
 async function getProducts(): Promise<Product[]> {
-  const res = await fetch("http://localhost:3000/api/products", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/products`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -16,7 +16,7 @@ async function getProducts(): Promise<Product[]> {
   return res.json();
 }
 async function getCategories(): Promise<Category[]> {
-  const res = await fetch("http://localhost:3000/api/categories", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/categories`, {
     headers: {
       "Content-Type": "application/json",
     },

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Product } from "@/types/product.type";
 
 export interface QueryProductsOptions {
@@ -17,17 +17,21 @@ export const useFilterProducts = (
   return useQuery<Product[]>({
     queryKey: ["products", categoryId, searchTerms, attributeIds],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `http://localhost:4000/api/product/category/${categoryId}`,
-        {
-          params:
-            attributeIds.length > 0
-              ? { attributeIds: attributeIds.join(","), searchTerms }
-              : { searchTerms },
-        }
-      );
+      try {
+        const { data } = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}product/category/${categoryId}`,
+          {
+            params:
+              attributeIds.length > 0
+                ? { attributeIds: attributeIds.join(","), searchTerms }
+                : { searchTerms },
+          }
+        );
 
-      return data;
+        return data;
+      } catch (err) {
+        throw new Error("Failed to fetch products");
+      }
     },
     initialData: initialData.products,
   });

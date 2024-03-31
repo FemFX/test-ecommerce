@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/header";
-import Provider from "@/components/provider";
+import GravityProvider from "@/components/providers/gravity-provider";
+import QueryProvider from "@/components/providers/query-provider";
 
 import "./globals.css";
 
 import "@gravity-ui/uikit/styles/fonts.css";
 import "@gravity-ui/uikit/styles/styles.css";
-import QueryProvider from "@/components/providers/query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
-          <Navbar />
-          <main className="pt-32 h-full container mx-auto">{children}</main>
+          <GravityProvider>
+            <Navbar />
+            <main className="pt-32 h-full container mx-auto">{children}</main>
+          </GravityProvider>
         </QueryProvider>
       </body>
     </html>
