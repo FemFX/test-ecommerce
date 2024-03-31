@@ -20,6 +20,7 @@ model Product {
   category   Category    @relation(fields: [categoryId], references: [id])
   categoryId String
   attributes Attribute[] @relation("ProductAttribute")
+  createdAt  DateTime    @default(now())
 }
 
 model Category {
@@ -27,6 +28,7 @@ model Category {
   name       String      @unique
   products   Product[]
   attributes Attribute[] @relation("CategoryAttribute")
+  createdAt  DateTime    @default(now())
 }
 
 model Attribute {
@@ -35,6 +37,7 @@ model Attribute {
   value      String
   products   Product[]  @relation("ProductAttribute")
   categories Category[] @relation("CategoryAttribute")
+  createdAt  DateTime   @default(now())
 
   @@unique([name, value])
 }

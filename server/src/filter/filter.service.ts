@@ -30,6 +30,9 @@ export class FilterService {
           },
         }),
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
       include: {
         attributes: true,
       },

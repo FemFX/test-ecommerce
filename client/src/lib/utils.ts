@@ -23,7 +23,7 @@ export const groupAttributes = (attrs: Attribute[]) => {
 };
 
 export async function getData<T>(url: string): Promise<T> {
-  const res = await fetch(url, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
     headers: {
       "Content-Type": "application/json",
     },

@@ -17,6 +17,9 @@ export class ProductService {
       include: {
         attributes: true,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 
