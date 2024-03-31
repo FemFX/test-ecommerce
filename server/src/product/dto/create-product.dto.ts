@@ -5,7 +5,7 @@ export class CreateProductDto {
   @IsString()
   readonly name: string;
   @IsString()
-  readonly imageUrl: string;
+  readonly imageId: string;
   @IsString()
   readonly categoryId: string;
   @IsArray()

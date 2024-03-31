@@ -1,20 +1,26 @@
 import { Product } from "@/types/product.type";
-import { Card } from "@gravity-ui/uikit";
 import Image from "next/image";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <Card className="border">
+    <div className=" shadow block">
       <div className="relative w-full aspect-video rounded-md overflow-hidden h-[140px]">
-        {/* <Image
+        <Image
           fill
-          src={product.imageUrl}
+          src={product.imageId}
           className="object-cover"
           alt={product.name}
-        /> */}
-        {product.name}
+        />
       </div>
-    </Card>
+      <div>{product.name}</div>
+      <div>
+        {product.attributes.map((attr) => (
+          <div key={attr.id} className="flex">
+            <div className="font-bold">{attr.name}</div>:{attr.value}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

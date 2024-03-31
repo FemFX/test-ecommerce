@@ -4,5 +4,5 @@ export class UpdateProductDto {
   @IsString()
   readonly name: string;
   @IsString()
-  readonly imageUrl: string;
+  readonly imageId: string;
 }

@@ -9,4 +9,8 @@ export class CategoryController {
   async getAll() {
     return this.categoryService.getAll();
   }
+  // @Get(':id')
+  // async getOne(){
+  //   return this.categoryService.getOne(id)
+  // }
 }

@@ -38,7 +38,7 @@ export class ProductService {
     const product = await this.prismaService.product.create({
       data: {
         name: dto.name,
-        imageUrl: dto.imageUrl,
+        imageId: dto.imageId,
         categoryId: dto.categoryId,
         attributes: {
           connect: dto.attributeIds.map((id) => ({
@@ -54,7 +54,7 @@ export class ProductService {
       where: { id: id },
       data: {
         name: dto.name,
-        imageUrl: dto.imageUrl,
+        imageId: dto.imageId,
       },
     });
 
