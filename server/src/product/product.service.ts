@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductWithAttributes } from 'src/types';
@@ -34,35 +34,47 @@ export class ProductService {
     });
   }
   async create(dto: CreateProductDto) {
-    const product = await this.prismaService.product.create({
-      data: {
-        name: dto.name,
-        imageId: dto.imageId,
-        categoryId: dto.categoryId,
-        attributes: {
-          connect: dto.attributeIds.map((id) => ({
-            id,
-          })),
+    try {
+      const product = await this.prismaService.product.create({
+        data: {
+          name: dto.name,
+          imageId: dto.imageId,
+          categoryId: dto.categoryId,
+          attributes: {
+            connect: dto.attributeIds.map((id) => ({
+              id,
+            })),
+          },
         },
-      },
-    });
-    return product;
+      });
+      return product;
+    } catch (err) {
+      throw new InternalServerErrorException();
+    }
   }
   async update(id: string, dto: UpdateProductDto) {
-    const updatedProduct = await this.prismaService.product.update({
-      where: { id: id },
-      data: {
-        name: dto.name,
-        imageId: dto.imageId,
-      },
-    });
+    try {
+      const updatedProduct = await this.prismaService.product.update({
+        where: { id: id },
+        data: {
+          name: dto.name,
+          imageId: dto.imageId,
+        },
+      });
 
-    return updatedProduct;
+      return updatedProduct;
+    } catch (err) {
+      throw new InternalServerErrorException();
+    }
   }
   async delete(id: string) {
-    const deletedItem = await this.prismaService.product.delete({
-      where: { id },
-    });
-    return deletedItem;
+    try {
+      const deletedItem = await this.prismaService.product.delete({
+        where: { id },
+      });
+      return deletedItem;
+    } catch (err) {
+      throw new InternalServerErrorException();
+    }
   }
 }
