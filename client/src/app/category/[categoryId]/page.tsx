@@ -1,47 +1,19 @@
 import FilteredProducts from "@/components/filtered-products";
+import { getData } from "@/lib/utils";
 import { Attribute } from "@/types/attribute";
 import { Product } from "@/types/product.type";
-
-async function getProductsByCategory(categoryId: string): Promise<Product[]> {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}/api/products/category/${categoryId}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-async function getAttributesByCategory(
-  categoryId: string
-): Promise<Attribute[]> {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}/api/attributes/${categoryId}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
 
 const ProductsByCategoryPage = async ({
   params,
 }: {
   params: { categoryId: string };
 }) => {
-  const products = await getProductsByCategory(params.categoryId);
-  const attributes = await getAttributesByCategory(params.categoryId);
+  const products = await getData<Product[]>(
+    `${process.env.NEXT_PUBLIC_URL}/api/products/category/${params.categoryId}`
+  );
+  const attributes = await getData<Attribute[]>(
+    `${process.env.NEXT_PUBLIC_URL}/api/attributes/${params.categoryId}`
+  );
 
   return (
     <div>

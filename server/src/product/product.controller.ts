@@ -28,7 +28,7 @@ export class ProductController {
 
   @Get('category/:categoryId')
   async getAllByCategory(
-    @Query() query,
+    @Query() query: { searchTerms?: string; attributeIds: string },
     @Param('categoryId') categoryId: string,
   ) {
     return this.productService.getAllByCategory(categoryId, query);

@@ -20,7 +20,10 @@ export class ProductService {
     });
   }
 
-  async getAllByCategory(categoryId: string, query) {
+  async getAllByCategory(
+    categoryId: string,
+    query: { searchTerms?: string; attributeIds: string },
+  ) {
     const filter = this.filterService.filterProducts({ ...query, categoryId });
 
     return this.prismaService.product.findMany(filter);
