@@ -11,7 +11,7 @@ import { AttributeService } from './attribute.service';
 import { CreateAttributeDto } from './dto/create-attribute.dto';
 import { UpdateAttributeDto } from './dto/update-attribute.dto';
 
-@Controller('attribute')
+@Controller('attributes')
 export class AttributeController {
   constructor(private readonly attributeService: AttributeService) {}
   @Get()
