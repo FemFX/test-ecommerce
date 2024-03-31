@@ -30,12 +30,12 @@ const Filter = ({ attributes, setAttributeIds, attributeIds }: FilterProps) => {
   };
 
   return (
-    <div>
+    <div className="p-2 text-lg">
       {Object.entries(groupedAttributes).map(([name, values]) => (
         <div key={name}>
-          <div className="font-bold">{name}</div>
+          <div className="font-bold capitalize text-xl">{name}</div>
           {values.map(({ id, value }) => (
-            <div key={id}>
+            <div className="flex items-center gap-2" key={id}>
               <Checkbox
                 checked={attributeIds.includes(id)}
                 onChange={() => handleFilterChange(id)}

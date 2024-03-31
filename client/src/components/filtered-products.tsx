@@ -44,16 +44,18 @@ const FilteredProducts = ({
         <Input
           value={searchTerms || ""}
           onChange={(e) => setSearchTerms(e.target.value)}
-          placeholder="search"
+          placeholder="Search..."
         />
       </div>
 
       <div className="grid grid-cols-4">
-        <Filter
-          attributes={attributes}
-          attributeIds={attributeIds}
-          setAttributeIds={setAttributeIds}
-        />
+        <div className="shadow p-2">
+          <Filter
+            attributes={attributes}
+            attributeIds={attributeIds}
+            setAttributeIds={setAttributeIds}
+          />
+        </div>
         <div className="col-span-3">
           {data.length > 0 ? (
             <ProductsCards products={data} />
