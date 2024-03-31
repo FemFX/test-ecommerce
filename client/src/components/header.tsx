@@ -7,9 +7,7 @@ const Navbar = () => {
         <Link href="/" className="font-bold">
           Test Ecommerce
         </Link>
-        <div className="space-x-4 sm:block w-auto flex items-center justify-between">
-          312
-        </div>
+        <div className="space-x-4 sm:block w-auto flex items-center justify-between"></div>
       </div>
     </div>
   );
