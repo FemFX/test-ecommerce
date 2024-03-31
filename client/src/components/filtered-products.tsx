@@ -25,10 +25,12 @@ const FilteredProducts = ({
   const [searchTerms, setSearchTerms] = useQueryState("searchTerms");
   const [debouncedSearchTerms] = useDebounce(searchTerms, 300);
   const [attributeIds, setAttributeIds] = useState<string[]>([]);
-  const { data, error, isLoading } = useFilterProducts(
+
+  const { data, isLoading } = useFilterProducts(
     { attributeIds, categoryId, searchTerms: debouncedSearchTerms || "" },
     { products }
   );
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
@@ -47,13 +49,11 @@ const FilteredProducts = ({
       </div>
 
       <div className="grid grid-cols-4">
-        <div>
-          <Filter
-            attributes={attributes}
-            attributeIds={attributeIds}
-            setAttributeIds={setAttributeIds}
-          />
-        </div>
+        <Filter
+          attributes={attributes}
+          attributeIds={attributeIds}
+          setAttributeIds={setAttributeIds}
+        />
         <div className="col-span-3">
           {data.length > 0 ? (
             <ProductsCards products={data} />
