@@ -18,13 +18,15 @@ export const useFilterProducts = (
     queryKey: ["products", categoryId, searchTerms, attributeIds],
     queryFn: async () => {
       try {
+        const params =
+          attributeIds.length > 0
+            ? { attributeIds: attributeIds.join(","), searchTerms }
+            : { searchTerms };
+
         const { data } = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}product/category/${categoryId}`,
           {
-            params:
-              attributeIds.length > 0
-                ? { attributeIds: attributeIds.join(","), searchTerms }
-                : { searchTerms },
+            params,
           }
         );
 

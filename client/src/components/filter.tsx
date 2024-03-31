@@ -2,7 +2,7 @@
 import { Dispatch, SetStateAction, useMemo } from "react";
 import { groupAttributes } from "@/lib/utils";
 import { Attribute } from "@/types/attribute";
-import { Checkbox } from "@gravity-ui/uikit";
+import AttributeGroup from "./attribute-group";
 
 export interface GroupedAttributes {
   [attributeName: string]: { id: string; value: string }[];
@@ -32,18 +32,13 @@ const Filter = ({ attributes, setAttributeIds, attributeIds }: FilterProps) => {
   return (
     <div className="p-2 text-lg">
       {Object.entries(groupedAttributes).map(([name, values]) => (
-        <div key={name}>
-          <div className="font-bold capitalize text-xl">{name}</div>
-          {values.map(({ id, value }) => (
-            <div className="flex items-center gap-2" key={id}>
-              <Checkbox
-                checked={attributeIds.includes(id)}
-                onChange={() => handleFilterChange(id)}
-              />
-              {value}
-            </div>
-          ))}
-        </div>
+        <AttributeGroup
+          key={name}
+          name={name}
+          values={values}
+          attributeIds={attributeIds}
+          handleFilterChange={handleFilterChange}
+        />
       ))}
     </div>
   );
